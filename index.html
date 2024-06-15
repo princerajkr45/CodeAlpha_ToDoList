@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(125deg, #420fa9, #90baff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            color: #420fa9;
+        }
+        
+        .todo-input {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-radius: 30px;
+            background: #edeef0;
+        }
+        
+        .todo-input input {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1rem;
+            
+        }
+        
+        .todo-input button {
+            padding: 20px 40px;
+            border: none;
+            background-color: rgb(219, 122, 32);
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .todo-input button:hover {
+            background-color: #6a4eca;
+        }
+        
+        #taskList {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #taskList li {
+            color: black;
+            padding: 10px 25px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3rem;
+            border: 1px solid #edeef0;
+        }
+        
+        #taskList li.completed {
+            text-decoration: line-through;
+            background-color: rgba(3, 155, 3, 0.5);
+        }
+        
+        .task-actions button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        
+        .task-actions button.complete {
+            color: #28a745;
+        }
+        
+        .task-actions button.delete {
+            color: #dc3545;
+        }
+        
+        .task-actions button:hover {
+            opacity: 0.8;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="todo-input">
+            <input type="text" id="taskInput" placeholder="Add a new task">
+            <button id="addTaskBtn">Add Task</button>
+        </div>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        let taskInput=document.querySelector("#taskInput");
+        let addTaskBtn=document.querySelector("#addTaskBtn");
+        let taskList = document.querySelector("#taskList");
+
+        addTaskBtn.addEventListener("click", () => {
+            let taskText = taskInput.value.trim(); 
+            if (taskText === "") {
+                alert("Please enter a task");
+                return;
+            }
+            
+            let taskItem = document.createElement("li");
+            taskItem.innerHTML = `<span>${taskText}</span>
+            <div class="task-actions">
+                <button class="complete">✓</button>
+                <button class="delete">✗</button>
+            </div>`;
+            taskList.appendChild(taskItem);
+        
+            taskInput.value = ""; 
+        });
+
+        taskList.addEventListener("click", (e) => {
+            if (e.target.classList.contains("complete")) {
+                const taskItem = e.target.closest("li");
+                taskItem.classList.toggle("completed");
+            }
+        
+            if (e.target.classList.contains("delete")) {
+                const taskItem = e.target.closest("li");
+                taskItem.remove();
+            }
+        });
+        
+        
+        
+    </script>
+</body>
+</html>
